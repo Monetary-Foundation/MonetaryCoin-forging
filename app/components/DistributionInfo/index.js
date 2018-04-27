@@ -6,13 +6,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-import WindowCountdown from 'components/WindowCountdown';
-import CurrentWindow from 'components/CurrentWindow';
-import CommitedForWindow from 'components/CommitedForWindow';
-import PriceForWindow from 'components/PriceForWindow';
+import styled from 'styled-components';
 
 import { Col, Spin } from 'antd';
+
+const BigSpan = styled.span`
+  color: #444444;
+  font-size: 200%;
+`;
+
+const SmallSpan = styled.span`
+  color: #8e8e8e;
+  font-size: 110%;
+`;
 
 function DistributionInfo(props) {
   const { web3, getDistributionInfoLoading, getDistributionInfoError, distributionInfo, onGetDistributionInfo } = props;
@@ -24,7 +30,7 @@ function DistributionInfo(props) {
           spinning={getDistributionInfoLoading}
           style={{ marginTop: 80, position: 'static' }}
           size="large"
-          tip="Loading distribution info..."
+          tip="Loading constract info..."
         >
           <br /> <br />
         </Spin>
@@ -36,45 +42,23 @@ function DistributionInfo(props) {
   }
 
   if (distributionInfo) {
-    const windowCountdownProps = {
+    const windowCountdownProps = { //eslint-disable-line
       onGetDistributionInfo,
-      timestamp: Number(distributionInfo.timestamp),
-      startTimestamp: Number(distributionInfo.startTimestamp),
-      windowLenght: Number(distributionInfo.windowLenght),
-    };
-
-    const currentWindowProps = {
-      currentWindow: Number(distributionInfo.currentWindow),
-      totalWindows: Number(distributionInfo.totalWindows),
-    };
-
-    const commitedForWindowProps = {
-      web3,
-      currentWindow: Number(distributionInfo.currentWindow),
-      totals: distributionInfo.totals,
-    };
-
-    const priceForWindowProps = {
-      web3,
-      currentWindow: distributionInfo.currentWindow,
-      totals: distributionInfo.totals,
-      firstPeriodWindows: distributionInfo.firstPeriodWindows,
-      secondPeriodWindows: distributionInfo.secondPeriodWindows,
-      firstPeriodSupply: distributionInfo.firstPeriodSupply,
-      secondPeriodSupply: distributionInfo.secondPeriodSupply,
+      timestamp: distributionInfo.timestamp,
+      startTimestamp: distributionInfo.startTimestamp,
+      windowLenght: distributionInfo.windowLenght,
     };
 
     // const { totals } = distributionInfo;
     // delete distributionInfo.totals;
+    const blockReward = distributionInfo && distributionInfo.blockReward;
+    const totalStake = distributionInfo && distributionInfo.totalStake;
+    const totalSupply = distributionInfo && distributionInfo.totalSupply;
     return (
-      <Col sm={{ span: 10, offset: 1 }} xs={{ span: 23, offset: 1 }}>
-        <WindowCountdown {...windowCountdownProps} />
-        <CurrentWindow {...currentWindowProps} />
-        <CommitedForWindow {...commitedForWindowProps} />
-        <PriceForWindow {...priceForWindowProps} />
-        {/* DistributionInfo component <pre> {distributionInfo && JSON.stringify(distributionInfo, 0, 0)}</pre>
-              DistributionInfo component <br /> {distributionInfo && JSON.stringify(distributionInfo, 0, 2)} <br /> */}
-        {/* totals:  totals && JSON.stringify(totals, 0, 0) */}
+      <Col sm={{ span: 10, offset: 1 }} xs={{ span: 23, offset: 1 }} style={{ marginTop: 30 }}>
+        <SmallSpan> Total Supply: </SmallSpan><BigSpan> {totalSupply ? web3.utils.fromWei(totalSupply, 'ether') : 0}</BigSpan> <br />
+        <SmallSpan> Block Reward: </SmallSpan><BigSpan> {blockReward ? web3.utils.fromWei(blockReward, 'ether') : 0}</BigSpan> <br />
+        <SmallSpan> Total Stake: </SmallSpan><BigSpan> {totalStake ? web3.utils.fromWei(totalStake, 'ether') : 0} </BigSpan> <br />
       </Col>
     );
   }

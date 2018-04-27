@@ -14,8 +14,18 @@ const Div = styled.div`
   margin-top: 3%;
 `;
 
+const BigSpan = styled.span`
+  color: #444444;
+  font-size: 150%;
+`;
+
+const SmallSpan = styled.span`
+  color: #8e8e8e;
+  font-size: 110%;
+`;
+
 function CommitLayout(props) {
-  const { commitments } = props;
+  const { web3, commitment } = props;
   return (
     <Div>
       <Row type="flex" align="left" >
@@ -23,8 +33,8 @@ function CommitLayout(props) {
           <Commit {...props} />
         </Col>
         <Col sm={{ span: 10, offset: 1 }} xs={{ span: 23, offset: 1 }}>
-          <h2> right side - heat map </h2>
-          {commitments && JSON.stringify(commitments, 0, 2)} <br />
+          <br />
+          <SmallSpan> My commitment: </SmallSpan><BigSpan> {(commitment && web3) ? web3.utils.fromWei(commitment, 'ether') : 0}</BigSpan> <br />
           <br />
         </Col>
       </Row>
@@ -33,7 +43,8 @@ function CommitLayout(props) {
 }
 
 CommitLayout.propTypes = {
-  commitments: PropTypes.array,
+  web3: PropTypes.object,
+  commitment: PropTypes.string,
 };
 
 export default CommitLayout;

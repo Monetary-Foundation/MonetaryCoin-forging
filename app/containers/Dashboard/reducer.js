@@ -57,7 +57,7 @@ const initialState = fromJS({
   addressInfo: null,
 
   commitEthSendWindow: 0,
-  commitEthSendAmount: 0.01,
+  commitEthSendAmount: 1,
 
   commitEthSendLoading: null,
   commitEthSendError: null,

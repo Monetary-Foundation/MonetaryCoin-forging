@@ -28,7 +28,7 @@ function Logo() {
     <Div>
       <Img alt="logo" src={DAppLogo} />
       <a href={website}>
-        MCoin Pre-Distribution DApp
+        MonetaryCoin DApp
       </a>
     </Div>
   );
