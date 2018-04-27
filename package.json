@@ -1,8 +1,8 @@
 {
-  "name": "mcoin-predistribution-dapp",
+  "name": "monetarycoin-dapp",
   "private": true,
   "version": "0.1.0",
-  "description": "a DApp for interacting with MCoin-PreDistribution contract",
+  "description": "a DApp for interacting with MonetaryCoin contract",
   "repository": {
     "type": "git",
     "url": " "
