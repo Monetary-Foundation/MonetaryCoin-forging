@@ -5,7 +5,7 @@ import Web3 from 'web3';
 
 import { distributionContracts } from 'utils/constants';
 
-import { distributionAbi } from 'utils/contracts/abi';
+import { MCoinAbi } from 'utils/contracts/abi';
 
 import {
   INIT_DASHBOARD,
@@ -41,11 +41,10 @@ import {
 
 import {
   makeSelectWeb3,
-  makeSelectDistributionAddress,
+  makeSelectTokenAddress,
 
-  makeSelectCommitEthSendWindow,
   makeSelectCommitEthSendAmount,
-  makeSelectWithdrawWindow,
+  // makeSelectWithdrawWindow,
 } from './selectors';
 
 
@@ -54,7 +53,8 @@ export const timer = (ms) =>
 
 const eventChannel = channel();
 
-let distributionContract;
+// let distributionContract;
+let tokenContract;
 
 /**
  * Init Dashboard
@@ -154,49 +154,31 @@ function* handleEvents() {
 function* getDistributionInfoAsync() {
   try {
     const web3 = yield select(makeSelectWeb3());
-    const distributionAddress = yield select(makeSelectDistributionAddress());
-    distributionContract = new web3.eth.Contract(distributionAbi, distributionAddress);
+    const tokenAddress = yield select(makeSelectTokenAddress());
+    tokenContract = new web3.eth.Contract(MCoinAbi, tokenAddress);
 
     // TODO:Remove
     yield call(timer, 500);
 
     const getLatestBlock = web3.eth.getBlock('latest');
 
-    const getCurrentWindow = distributionContract.methods.currentWindow().call();
-    const getTotalWindows = distributionContract.methods.totalWindows().call();
-
-    const getStartTimestamp = distributionContract.methods.startTimestamp().call();
-    const getWindowLenght = distributionContract.methods.windowLength().call();
-
-    const getFirstPeriodWindows = distributionContract.methods.firstPeriodWindows().call();
-    const getSecondPeriodWindows = distributionContract.methods.secondPeriodWindows().call();
-
-    const getFirstPeriodSupply = distributionContract.methods.firstPeriodSupply().call();
-    const getSecondPeriodSupply = distributionContract.methods.secondPeriodSupply().call();
-
-
-    const getTotals = distributionContract.methods.getTotals().call();
+    const getBlockReward = tokenContract.methods.blockReward().call();
+    const getTotalStake = tokenContract.methods.totalStake().call();
+    const getTotalSupply = tokenContract.methods.totalSupply().call();
 
     const getAllPromises = () =>
-      Promise.all([getLatestBlock, getCurrentWindow, getTotalWindows, getStartTimestamp, getWindowLenght,
-        getFirstPeriodWindows, getSecondPeriodWindows, getFirstPeriodSupply, getSecondPeriodSupply, getTotals]);
+      Promise.all([getLatestBlock, getTotalSupply, getBlockReward, getTotalStake]);
 
-    const [latestBlock, currentWindow, totalWindows, startTimestamp, windowLenght,
-      firstPeriodWindows, secondPeriodWindows, firstPeriodSupply, secondPeriodSupply, totals] =
+    const [latestBlock, totalSupply, blockReward, totalStake] =
       yield call(getAllPromises);
 
 
     const distributionInfo = {
       timestamp: latestBlock.timestamp,
-      currentWindow,
-      totalWindows,
-      startTimestamp,
-      windowLenght,
-      firstPeriodWindows,
-      secondPeriodWindows,
-      firstPeriodSupply,
-      secondPeriodSupply,
-      totals,
+      totalSupply,
+      latestBlock,
+      blockReward,
+      totalStake,
     };
 
     // console.log(totals);
@@ -213,26 +195,23 @@ function* getDistributionInfoAsync() {
 function* getAddressInfoAsync() {
   try {
     const web3 = yield select(makeSelectWeb3());
-    // const distributionAddress = yield select(makeSelectDistributionAddress());
-    // distributionContract = new web3.eth.Contract(distributionAbi, distributionAddress);
-
-    // TODO:Remove
-    // yield call(timer, 500);
 
     const address = (yield call(() => web3.eth.getAccounts()))[0];
 
-    const getCommitments = distributionContract.methods.getCommitmentsOf(address).call();
-    const getRewards = distributionContract.methods.getAllRewards().call();
+    const getBalanceOf = tokenContract.methods.balanceOf(address).call();
+    const getCommitmentOf = tokenContract.methods.commitmentOf(address).call();
+    const getReward = tokenContract.methods.getReward(address).call();
 
     const getAllPromises = () =>
-      Promise.all([getCommitments, getRewards]);
+      Promise.all([getBalanceOf, getCommitmentOf, getReward]);
 
-    const [commitments, rewards] = yield call(getAllPromises);
+    const [balance, commitment, reward] = yield call(getAllPromises);
 
     const distributionInfo = {
       address,
-      commitments,
-      rewards,
+      balance,
+      commitment,
+      reward,
     };
 
     // const getRewards = () => distributionContract.methods.getAllRewards().call();
@@ -251,22 +230,24 @@ function* getAddressInfoAsync() {
 function* commitEthSendAsync() {
   try {
     const web3 = yield select(makeSelectWeb3());
-    const window = yield select(makeSelectCommitEthSendWindow());
     const amount = (yield select(makeSelectCommitEthSendAmount()));
 
-    console.log(`window: ${window}`);
     console.log(`amount: ${amount}`);
     console.log(`typeof amount: ${typeof (amount)}`);
 
     const defaultAccount = (yield call(() => web3.eth.getAccounts()))[0];
     console.log(defaultAccount);
 
+    const commitValue = web3.utils.toWei(amount.toString(), 'ether');
+    console.log(commitValue);
+    console.log(`typeof amount: ${typeof (commitValue)}`);
+
     const sendPromise = () =>
-      distributionContract.methods.commitOn(window).send({
+      tokenContract.methods.commit(commitValue).send({
         from: defaultAccount,
-        gas: (100000).toString(),
+        gas: (200000).toString(),
         gasPrice: web3.utils.toWei((10).toString(), 'gwei'),
-        value: web3.utils.toWei(amount.toString(), 'ether'),
+        value: 0,
       });
 
 
@@ -287,16 +268,13 @@ function* commitEthSendAsync() {
 function* withdrawSendAsync() {
   try {
     const web3 = yield select(makeSelectWeb3());
-    const window = yield select(makeSelectWithdrawWindow());
 
     console.log('withdrawSendAsync');
-    console.log(`window: ${window}`);
 
     const defaultAccount = (yield call(() => web3.eth.getAccounts()))[0];
-    console.log(defaultAccount);
 
     const sendPromise = () =>
-      distributionContract.methods.withdraw(window).send({
+      tokenContract.methods.withdraw().send({
         from: defaultAccount,
         gas: (100000).toString(),
         gasPrice: web3.utils.toWei((10).toString(), 'gwei'),

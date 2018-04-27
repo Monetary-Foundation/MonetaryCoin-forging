@@ -12,32 +12,22 @@ import { Button, InputNumber } from 'antd';
 
 function Commit(props) {
   const {
-    commitEthSendWindow,
     commitEthSendAmount,
     commitEthSendLoading,
     commitEthSendError,
     commitEthSendTx,
-    onChangeWindow,
     onChangeAmount,
     onCommitEthSend,
   } = props;
 
   return (
     <div>
-      <h2> Commit ETH </h2>
-      Window:{' '}
-      <InputNumber
-        min={0}
-        max={365}
-        step={1}
-        value={commitEthSendWindow}
-        onChange={(value) => onChangeWindow(value)}
-      />
+      <h2> Commit for forging </h2>
       <br />
       Amount:{' '}
       <InputNumber
-        min={0.01}
-        step={0.01}
+        min={1}
+        step={1}
         value={commitEthSendAmount}
         onChange={(value) => onChangeAmount(value)}
       />
@@ -46,19 +36,17 @@ function Commit(props) {
       Error: {commitEthSendError || 'false'} <br />
       sendTx: {commitEthSendTx || 'null'} <br />
       <Button type="primary" loading={commitEthSendLoading} size="large" onClick={() => onCommitEthSend()}>
-        Commmit ETH
+        Commmit
       </Button>
     </div>
   );
 }
 
 Commit.propTypes = {
-  commitEthSendWindow: PropTypes.number,
   commitEthSendAmount: PropTypes.number,
   commitEthSendLoading: PropTypes.bool,
   commitEthSendError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   commitEthSendTx: PropTypes.string,
-  onChangeWindow: PropTypes.func,
   onChangeAmount: PropTypes.func,
   onCommitEthSend: PropTypes.func,
 

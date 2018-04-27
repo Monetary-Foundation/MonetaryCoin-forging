@@ -18,7 +18,6 @@ function Web3Status(props) {
     // networkName,
     tokenName,
     tokenAddress,
-    distributionAddress,
     // tokenList,
   } = props;
 
@@ -36,7 +35,6 @@ function Web3Status(props) {
       <Token>
         {tokenName}
       </Token>
-      Distribution Contract: <br /> {distributionAddress} <br /><br />
       Token Contract: <br /> {tokenAddress} <br /> <br />
       Web3 Provider: <br /> {provider || 'no web3 provider specified'} <br />
     </Col>

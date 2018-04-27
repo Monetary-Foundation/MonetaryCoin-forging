@@ -151,7 +151,7 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
       days: 181,
     };
 
-    const addressInfoProps = {};
+    const addressInfoProps = { web3 };
 
     const addressProps = { getAddressInfoLoading, getAddressInfoError, addressInfo, isWeb3Browser };
 
@@ -183,8 +183,8 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
     return (
       <div>
         <Helmet>
-          <title>MCoin-PreDistribution-Dapp - Dashboard</title>
-          <meta name="description" content="MCoin-PreDistribution-Dapp" />
+          <title>MonetaryCoin-Dapp - Dashboard</title>
+          <meta name="description" content="MonetaryCoin-Dapp" />
         </Helmet>
 
         <Content>
