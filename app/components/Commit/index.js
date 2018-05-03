@@ -22,7 +22,7 @@ function Commit(props) {
 
   return (
     <div>
-      <h2> Commit for forging </h2>
+      <h2> POS Forging </h2>
       <br />
       Amount:{' '}
       <InputNumber

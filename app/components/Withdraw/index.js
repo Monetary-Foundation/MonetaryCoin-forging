@@ -23,7 +23,7 @@ function Withdraw(props) {
 
   return (
     <div>
-      <h2> Withdraw forging reward </h2>
+      <h2> Forging reward </h2>
       <br />
       WithdrawSendLoading: {withdrawSendLoading ? 'true' : 'false'} <br />
       WithdrawMinedLoading: {withdrawMinedLoading ? 'true' : 'false'} <br />
