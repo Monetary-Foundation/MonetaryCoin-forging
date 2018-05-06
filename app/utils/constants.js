@@ -49,13 +49,13 @@ export const distributionContracts = {
     [
       {
         name: 'MUSA',
-        address: '0x023be0e83e2711472179cb8123133f3eaf85a185',
-        distributionAddress: '0x023be0e83e2711472179cb8123133f3eaf85a185',
+        distributionAddress: '0x73ca2d6418c20db6efb63e9c01cd538f8cc401b9',
+        address: '0x8c18ae193135a53fae8e93b6ab4be3e7df4da11d',
       },
       {
-        name: 'MUK',
-        address: '0x023be0e83e2711472179cb8123133f3eaf85a185',
-        distributionAddress: '0x023be0e83e2711472179cb8123133f3eaf85a185',
+        name: 'MERO',
+        distributionAddress: '0x348025b7927e56e19d79a1776dd0928fa5427dbb',
+        address: '0xaace03b8b31c08841094b9f3b784794ef208b8c1',
       },
     ],
   },
