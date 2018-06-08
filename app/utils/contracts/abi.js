@@ -780,7 +780,26 @@ export const distributionAbi =  [
   }
 ]
 
-export const MCoinAbi = [
+export const MCoinAbi =[
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newBlockReward",
+        "type": "int256"
+      }
+    ],
+    "name": "setNegativeGrowth",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
   {
     "constant": true,
     "inputs": [],
@@ -807,6 +826,24 @@ export const MCoinAbi = [
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newM5Token",
+        "type": "address"
+      },
+      {
+        "name": "newM5Logic",
+        "type": "address"
+      }
+    ],
+    "name": "upgradeM5",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -911,6 +948,25 @@ export const MCoinAbi = [
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newBlockReward",
+        "type": "int256"
+      }
+    ],
+    "name": "setPositiveGrowth",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "decimals",
@@ -922,6 +978,20 @@ export const MCoinAbi = [
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "finishUpgrade",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -967,6 +1037,29 @@ export const MCoinAbi = [
   },
   {
     "constant": false,
+    "inputs": [],
+    "name": "claimOracle",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "pendingGDPOracle",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
     "inputs": [
       {
         "name": "_spender",
@@ -990,6 +1083,20 @@ export const MCoinAbi = [
   },
   {
     "constant": true,
+    "inputs": [],
+    "name": "M5Token",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [
       {
         "name": "_owner",
@@ -999,7 +1106,7 @@ export const MCoinAbi = [
     "name": "balanceOf",
     "outputs": [
       {
-        "name": "balance",
+        "name": "",
         "type": "uint256"
       }
     ],
@@ -1010,11 +1117,38 @@ export const MCoinAbi = [
   {
     "constant": false,
     "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
     "name": "finishMinting",
     "outputs": [
       {
         "name": "",
         "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "withdrawM5",
+    "outputs": [
+      {
+        "name": "reward",
+        "type": "uint256"
+      },
+      {
+        "name": "commitmentValue",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -1050,6 +1184,25 @@ export const MCoinAbi = [
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "swap",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "symbol",
@@ -1057,6 +1210,39 @@ export const MCoinAbi = [
       {
         "name": "",
         "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "isUpgradeFinished",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_miner",
+        "type": "address"
+      }
+    ],
+    "name": "getM5Reward",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -1082,6 +1268,20 @@ export const MCoinAbi = [
         "type": "bool"
       }
     ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newOracle",
+        "type": "address"
+      }
+    ],
+    "name": "transferGDPOracle",
+    "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1175,6 +1375,62 @@ export const MCoinAbi = [
     "type": "function"
   },
   {
+    "constant": true,
+    "inputs": [],
+    "name": "upgradeManager",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newM5Logic",
+        "type": "address"
+      }
+    ],
+    "name": "upgradeM5Logic",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newM5Token",
+        "type": "address"
+      }
+    ],
+    "name": "upgradeM5Token",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "GDPOracle",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "constant": false,
     "inputs": [
       {
@@ -1199,12 +1455,26 @@ export const MCoinAbi = [
     "name": "commit",
     "outputs": [
       {
-        "name": "commitValue",
+        "name": "commitmentValue",
         "type": "uint256"
       }
     ],
     "payable": false,
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "M5Logic",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1227,23 +1497,180 @@ export const MCoinAbi = [
     "type": "function"
   },
   {
+    "constant": true,
     "inputs": [
       {
-        "name": "initialAccount",
+        "name": "_miner",
         "type": "address"
-      },
+      }
+    ],
+    "name": "getCommitment",
+    "outputs": [
       {
-        "name": "initialSupply",
+        "name": "value",
         "type": "uint256"
       },
       {
-        "name": "blockReward",
+        "name": "onBlockNumber",
+        "type": "uint256"
+      },
+      {
+        "name": "atStake",
+        "type": "uint256"
+      },
+      {
+        "name": "onBlockReward",
         "type": "int256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "tokenName",
+        "type": "string"
+      },
+      {
+        "name": "tokenSymbol",
+        "type": "string"
+      },
+      {
+        "name": "blockReward",
+        "type": "uint256"
+      },
+      {
+        "name": "GDPOracle",
+        "type": "address"
+      },
+      {
+        "name": "upgradeManager",
+        "type": "address"
       }
     ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "oldM5Token",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "newM5Token",
+        "type": "address"
+      }
+    ],
+    "name": "M5TokenUpgrade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "oldM5Logic",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "newM5Logic",
+        "type": "address"
+      }
+    ],
+    "name": "M5LogicUpgrade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "FinishUpgrade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "commitment",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "M5Reward",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawM5",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "M5Value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Swap",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "previousOracle",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "newOracle",
+        "type": "address"
+      }
+    ],
+    "name": "GDPOracleTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "oldBlockReward",
+        "type": "int256"
+      },
+      {
+        "indexed": false,
+        "name": "newBlockReward",
+        "type": "int256"
+      }
+    ],
+    "name": "BlockRewardChanged",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -1315,6 +1742,18 @@ export const MCoinAbi = [
     "anonymous": false,
     "inputs": [],
     "name": "MintFinished",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "previousOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipRenounced",
     "type": "event"
   },
   {
