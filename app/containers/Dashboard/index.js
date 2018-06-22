@@ -187,7 +187,7 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
       distributionInfo,
     };
 
-    const addressInfoProps = { currentWindow, totalWindows };
+    const addressInfoProps = { web3, currentWindow, totalWindows };
 
     const addressProps = {
       getAddressInfoLoading,
@@ -236,8 +236,7 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
     return (
       <div>
         <Helmet>
-          <title>MonetaryCoin Distribution DApp</title>
-          <meta name="description" content=">MonetaryCoin Distribution DApp" />
+          <title>MonetaryCoin - Forging Dapp</title>
         </Helmet>
 
         <Content>
@@ -246,7 +245,7 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
             <Web3Status {...initStatusProps} />
             <DistributionInfo {...distributionInfoProps} />
           </Row>
-          <TotalsInfo {...totalsInfoProps} />
+          {/* <TotalsInfo {...totalsInfoProps} /> */}
           <AddressInfo {...addressInfoProps} />
         </Content>
         <PageFooter />

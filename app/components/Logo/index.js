@@ -29,7 +29,7 @@ function Logo() {
     <Div>
       <Img alt="logo" src={DAppLogo} />
       <a href={website}>
-        MonetaryCoin Distribution DApp
+        MonetaryCoin Forging DApp
       </a>
     </Div>
   );

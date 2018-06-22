@@ -26,7 +26,6 @@ function Web3Status(props) {
     tokenName,
     tokenSymbol,
     tokenAddress,
-    distributionAddress,
     // tokenList,
   } = props;
 
@@ -52,8 +51,6 @@ function Web3Status(props) {
       <Token>{tokenName}</Token>
       <Symbol>{`(${tokenSymbol})`}</Symbol>
       <br />
-      Distribution Contract: <br />
-      <AddressLink address={distributionAddress} networkId={networkId} /><br /><br />
       Token Contract: <br />
       <AddressLink address={tokenAddress} networkId={networkId} />
       <br /> <br />
@@ -73,7 +70,7 @@ Web3Status.propTypes = {
   tokenName: PropTypes.string,
   tokenSymbol: PropTypes.string,
   tokenAddress: PropTypes.string,
-  distributionAddress: PropTypes.string,
+  // distributionAddress: PropTypes.string,
   // tokenList: PropTypes.array,
 };
 

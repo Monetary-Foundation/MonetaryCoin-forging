@@ -1,10 +1,8 @@
-# MonetaryCoin PreDistribution-DApp
+# MonetaryCoin Forging DApp
 
-### A DAPP for interacting with the MonetaryCoin distribution contract
+## An interface to allow users to conveniently use the MCoin forging mechanism.
 
-![MonetaryCoin Distribution DAPP](https://github.com/Monetary-Foundation/PreDistribution-DApp/raw/master/docs/images/MonetaryCoin_distribution.jpg)
 
-App Deployed to https://MonetaryCoin.io
 ### Additional info
 
 [MonetaryCoin Homepage](https://MonetaryCoin.org)
@@ -30,26 +28,8 @@ App Deployed to https://MonetaryCoin.io
 
 ### Features
 
-- [x] Distribution general info
-- [x] Commit to specific Window 
-- [x] Withdraw token after window is closed
-- [ ] Live Update from the blockchain
+- [x] Forging mechaisem interface
 
-
-#### MonetaryCoin Distribution ABI
-[MonetaryCoin Distribution ABI](https://github.com/Monetary-Foundation/PreDistribution-DApp/blob/master/app/utils/contracts/abi.js)
-
-To initiate the contract we use
-```javascript
-web3.eth.contract(distributionAbi)
-```
-
-
-Like all other network communication in the app, calls to erc20 contracts are done inside `app/containers/Dashboard/saga.js`.
-ERC20 Abi can be imported using 
-```javascript
-import { distributionAbi } from 'utils/contracts/abi';
-```
 
 
 

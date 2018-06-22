@@ -5,7 +5,7 @@ import Web3 from 'web3';
 
 import { distributionContracts } from 'utils/constants';
 
-import { distributionAbi } from 'utils/contracts/abi';
+import { MCoinAbi } from 'utils/contracts/abi';
 
 import {
   INIT_DASHBOARD,
@@ -52,11 +52,10 @@ import {
 
 import {
   makeSelectWeb3,
-  makeSelectDistributionAddress,
+  makeSelectTokenAddress,
 
-  makeSelectCommitEthSendWindow,
   makeSelectCommitEthSendAmount,
-  makeSelectWithdrawWindow,
+  // makeSelectWithdrawWindow,
 } from './selectors';
 
 
@@ -66,7 +65,8 @@ export const timer = (ms) =>
 const withdrawChannel = channel();
 const STOP_CHANNEL_FORK = 'app/Dashboard/STOP_CHANNEL_FORK';
 
-let distributionContract;
+// let distributionContract;
+let tokenContract;
 
 /**
  * Init Dashboard
@@ -180,8 +180,8 @@ function* initDashboardAsync(action) {
 function* getDistributionInfoAsync() {
   try {
     const web3 = yield select(makeSelectWeb3());
-    const distributionAddress = yield select(makeSelectDistributionAddress());
-    distributionContract = new web3.eth.Contract(distributionAbi, distributionAddress);
+    const tokenAddress = yield select(makeSelectTokenAddress());
+    tokenContract = new web3.eth.Contract(MCoinAbi, tokenAddress);
 
     // TODO:Remove
     yield call(timer, 500);
@@ -189,54 +189,24 @@ function* getDistributionInfoAsync() {
     const allCalls = [];
 
     allCalls.push(web3.eth.getBlock('latest'));
-    allCalls.push(distributionContract.methods.totalWindows().call());
-    // allCalls.push(distributionContract.methods.startTimestamp().call());
-    // allCalls.push(distributionContract.methods.windowLength().call());
-    allCalls.push(distributionContract.methods.firstPeriodWindows().call());
-    allCalls.push(distributionContract.methods.secondPeriodWindows().call());
-    allCalls.push(distributionContract.methods.firstPeriodSupply().call());
-    allCalls.push(distributionContract.methods.secondPeriodSupply().call());
-    allCalls.push(distributionContract.methods.getTotals().call());
-    allCalls.push(distributionContract.methods.detailsOfWindow().call());
+
+    allCalls.push(tokenContract.methods.blockReward().call());
+    allCalls.push(tokenContract.methods.totalStake().call());
+    allCalls.push(tokenContract.methods.totalSupply().call());
 
     const getAllPromises = () => Promise.all(allCalls);
 
-    const [
-      latestBlock,
-      totalWindows,
-      // startTimestamp,
-      // windowLenght,
-      firstPeriodWindows,
-      secondPeriodWindows,
-      firstPeriodSupply,
-      secondPeriodSupply,
-      totals,
-      detailsOfWindow,
-    ] = yield call(getAllPromises);
 
-    const {
-      // start,
-      // end,
-      remainingTime,
-      allocation,
-      // totalEth,
-      number,
-    } = detailsOfWindow;
+    const [latestBlock, totalSupply, blockReward, totalStake] =
+      yield call(getAllPromises);
+
 
     const distributionInfo = {
       timestamp: latestBlock.timestamp,
-      currentWindow: number,
-      totalWindows,
-      // startTimestamp,
-      // windowLenght,
-      firstPeriodWindows,
-      secondPeriodWindows,
-      firstPeriodSupply,
-      secondPeriodSupply,
-      totals,
-
-      remainingTime,
-      allocation,
+      totalSupply,
+      latestBlock,
+      blockReward,
+      totalStake,
     };
 
 
@@ -252,38 +222,30 @@ function* getDistributionInfoAsync() {
 function* getAddressInfoAsync() {
   try {
     const web3 = yield select(makeSelectWeb3());
-    // const distributionAddress = yield select(makeSelectDistributionAddress());
-    // distributionContract = new web3.eth.Contract(distributionAbi, distributionAddress);
-
-    // TODO:Remove
-    // yield call(timer, 500);
 
     const address = (yield call(() => web3.eth.getAccounts()))[0];
 
-    console.log(`user address: ${address}`);
-
-    // if (!address) {
-    //   throw new Error('Wallet locked, unlock wallet to use Dapp');
-    // }
-
-    const getCommitments = distributionContract.methods.getCommitmentsOf(address).call();
-    const getRewards = distributionContract.methods.getAllRewards().call();
+    const getBalanceOf = tokenContract.methods.balanceOf(address).call();
+    const getCommitmentOf = tokenContract.methods.commitmentOf(address).call();
+    const getReward = tokenContract.methods.getReward(address).call();
 
     const getAllPromises = () =>
-      Promise.all([getCommitments, getRewards]);
+      Promise.all([getBalanceOf, getCommitmentOf, getReward]);
 
-    const [commitments, rewards] = yield call(getAllPromises);
-    const distributionInfo = {
+    const [balance, commitment, reward] = yield call(getAllPromises);
+
+    const addressInfo = {
       address,
-      commitments,
-      rewards,
+      balance,
+      commitment,
+      reward,
     };
 
     // const getRewards = () => distributionContract.methods.getAllRewards().call();
     // const rewards = yield call(getRewards);
 
 
-    yield put(getAddressInfoSuccess(distributionInfo));
+    yield put(getAddressInfoSuccess(addressInfo));
   } catch (err) {
     yield put(getAddressInfoError(err.toString()));
   }
@@ -295,16 +257,19 @@ function* getAddressInfoAsync() {
 function* commitEthSendAsync() {
   try {
     const web3 = yield select(makeSelectWeb3());
-    const window = yield select(makeSelectCommitEthSendWindow());
     const amount = (yield select(makeSelectCommitEthSendAmount()));
 
     const defaultAccount = (yield call(() => web3.eth.getAccounts()))[0];
 
-    distributionContract.methods.commitOn(window).send({
+    const commitValue = web3.utils.toWei(amount.toString(), 'ether');
+    console.log(commitValue);
+    console.log(`typeof amount: ${typeof (commitValue)}`);
+
+    tokenContract.methods.commit(commitValue).send({
       from: defaultAccount,
       gas: (100000).toString(),
       gasPrice: web3.utils.toWei((10).toString(), 'gwei'),
-      value: web3.utils.toWei(amount.toString(), 'ether'),
+      value: 0,
     }).once('transactionHash', (tx) => {
       withdrawChannel.put({
         type: COMMIT_ETH_SEND_SUCCESS,
@@ -324,6 +289,9 @@ function* commitEthSendAsync() {
         });
       });
 
+    console.log(`amount: ${amount}`);
+    console.log(`typeof amount: ${typeof (amount)}`);
+
 
     // const receipt = yield call(sendPromise);
     // console.log(receipt);
@@ -342,7 +310,6 @@ function* commitEthSendAsync() {
 function* withdrawSendAsync() {
   try {
     const web3 = yield select(makeSelectWeb3());
-    const window = yield select(makeSelectWithdrawWindow());
 
     // console.log('withdrawSendAsync');
     // console.log(`window: ${window}`);
@@ -350,7 +317,7 @@ function* withdrawSendAsync() {
     const defaultAccount = (yield call(() => web3.eth.getAccounts()))[0];
     // console.log(defaultAccount);
 
-    distributionContract.methods.withdraw(window).send({
+    tokenContract.methods.withdraw().send({
       from: defaultAccount,
       gas: (100000).toString(),
       gasPrice: web3.utils.toWei((10).toString(), 'gwei'),
@@ -374,6 +341,8 @@ function* withdrawSendAsync() {
           error,
         });
       });
+
+    console.log('withdrawSendAsync');
 
 
     // yield put(withdrawMinedSuccess({ recipt: 'withdraw receipt' }));

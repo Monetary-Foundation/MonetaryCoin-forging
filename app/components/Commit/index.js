@@ -25,37 +25,23 @@ const DivS2 = styled.div`
 
 function Commit(props) {
   const {
-    commitEthSendWindow,
     commitEthSendAmount,
     commitEthSendLoading,
     commitEthError,
     commitEthSendTx,
     // commitEthMinedLoading,
     commitEthMinedRecipt,
-    onChangeWindow,
     onChangeAmount,
     onCommitEthSend,
-
     networkId,
-
-    currentWindow,
-    totalWindows,
   } = props;
 
   const conditionalSpace = (!commitEthSendTx && !commitEthError) ? <br /> : null;
 
   return (
     <div>
-      <h3> Commit Ether </h3>
+      <h3> POS Forging </h3>
       <DivS>
-        Window:{' '}
-        <InputNumber
-          min={currentWindow}
-          max={totalWindows - 1}
-          step={1}
-          value={commitEthSendWindow}
-          onChange={(value) => onChangeWindow(value)}
-        />
         <br /><br />
         Amount:{' '}
         <InputNumber
@@ -91,21 +77,20 @@ function Commit(props) {
 }
 
 Commit.propTypes = {
-  commitEthSendWindow: PropTypes.number,
   commitEthSendAmount: PropTypes.number,
   commitEthSendLoading: PropTypes.bool,
   // commitEthMinedLoading: PropTypes.bool,
   commitEthError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   commitEthSendTx: PropTypes.string,
   commitEthMinedRecipt: PropTypes.object,
-  onChangeWindow: PropTypes.func,
+  // onChangeWindow: PropTypes.func,
   onChangeAmount: PropTypes.func,
   onCommitEthSend: PropTypes.func,
 
   networkId: PropTypes.number,
 
-  currentWindow: PropTypes.number,
-  totalWindows: PropTypes.number,
+  // currentWindow: PropTypes.number,
+  // totalWindows: PropTypes.number,
 };
 
 export default Commit;

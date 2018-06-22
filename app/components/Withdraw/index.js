@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button, InputNumber } from 'antd';
+import { Button } from 'antd';
 import ErrorDisplay from 'components/ErrorDisplay';
 import TxDisplay from 'components/TxDisplay';
 import SendLoadingIndicator from 'components/SendLoadingIndicator';
@@ -25,9 +25,9 @@ function Withdraw(props) {
   const {
     networkId,
     currentWindow,
-    onChangeWithdrawWindow,
+    // onChangeWithdrawWindow,
+
     onWithdrawSend,
-    withdrawWindow,
     withdrawSendLoading,
     // withdrawMinedLoading,
     withdrawError,
@@ -43,14 +43,6 @@ function Withdraw(props) {
     <div>
       <h3> Withdraw tokens </h3>
       <DivS>
-        Window:{' '}
-        <InputNumber
-          min={0}
-          max={(currentWindow > 0) ? (currentWindow - 1) : 0}
-          step={1}
-          value={withdrawWindow}
-          onChange={(value) => onChangeWithdrawWindow(value)}
-        />
         <br /><br /><br />
         <Button
           type="primary"
@@ -75,6 +67,9 @@ function Withdraw(props) {
         <br />
       </DivS2>
       {/* WithdrawSendLoading: {withdrawSendLoading ? 'true' : 'false'} <br />
+      <h2> Forging reward </h2>
+      <br />
+      WithdrawSendLoading: {withdrawSendLoading ? 'true' : 'false'} <br />
       WithdrawMinedLoading: {withdrawMinedLoading ? 'true' : 'false'} <br />
       Error: {withdrawError ? withdrawError.toString() : 'false'} <br />
       SendTx: {withdrawSendTx || 'null'} <br />
@@ -86,9 +81,8 @@ function Withdraw(props) {
 Withdraw.propTypes = {
   networkId: PropTypes.number,
   currentWindow: PropTypes.number,
-  onChangeWithdrawWindow: PropTypes.func,
+  // onChangeWithdrawWindow: PropTypes.func,
   onWithdrawSend: PropTypes.func,
-  withdrawWindow: PropTypes.number,
   withdrawSendLoading: PropTypes.bool,
   // withdrawMinedLoading: PropTypes.bool,
   withdrawError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
