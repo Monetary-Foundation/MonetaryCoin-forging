@@ -23,15 +23,16 @@ function Instructions() {
   return (
     <RowS type="flex" align="left" >
       <Col xs={{ span: 22, offset: 1 }} >
-        <h2> Distribution instructions </h2>
+        <h2> Forging instructions </h2>
         <br />
         <TimelineS>
           <Item color="grey">Please read
-            <a target="_blank" rel="noopener" href="https://monetarycoin.org/distribution"> MonetaryCoin Distribution Details</a></Item>
+            <a target="_blank" rel="noopener" href="https://monetarycoin.org/forging"> MonetaryCoin Forging Details</a>
+          </Item>
           <Item color="grey"><b>Test</b> this procces by selecting <b>Ropsten Test Network</b> from Metamask/Web3 browser before commiting real Ether</Item>
-          <Item>Select window and <b>commit</b> Ether</Item>
-          <Item color="red"><b>Wait</b> for window to close for final price setting</Item>
-          <Item ><b>Withdraw</b> tokens for closed window</Item>
+          <Item><b>commit</b> Tokens for Forging</Item>
+          <Item color="red">The Forging reward will increase with every block mined</Item>
+          <Item ><b>Withdraw</b> commitmend and reward</Item>
         </TimelineS>
       </Col>
     </RowS>
