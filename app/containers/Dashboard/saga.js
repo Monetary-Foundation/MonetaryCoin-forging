@@ -197,7 +197,7 @@ function* getDistributionInfoAsync() {
     const getAllPromises = () => Promise.all(allCalls);
 
 
-    const [latestBlock, totalSupply, blockReward, totalStake] =
+    const [latestBlock, blockReward, totalStake, totalSupply] =
       yield call(getAllPromises);
 
 
@@ -267,7 +267,7 @@ function* commitEthSendAsync() {
 
     tokenContract.methods.commit(commitValue).send({
       from: defaultAccount,
-      gas: (100000).toString(),
+      gas: (200000).toString(),
       gasPrice: web3.utils.toWei((10).toString(), 'gwei'),
       value: 0,
     }).once('transactionHash', (tx) => {
