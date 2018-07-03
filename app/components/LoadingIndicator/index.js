@@ -20,7 +20,7 @@ transform: translate(-50%, -50%);
 function LoadingIndicator() {
   return (
     <Div>
-      <Spin size="large" tip="MonetaryCoin Distribution" />
+      <Spin size="large" tip="MonetaryCoin Forging" />
     </Div>
   );
 }
