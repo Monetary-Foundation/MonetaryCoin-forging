@@ -13,12 +13,13 @@ import TxDisplay from 'components/TxDisplay';
 import SendLoadingIndicator from 'components/SendLoadingIndicator';
 
 const DivS = styled.div`
-  margin-top: 35px;
-  margin-bottom: 15px;
+  margin-bottom: 15px; 
 `;
 
 const DivS2 = styled.div`
-  overflow-x: hidden;
+  height: 10em;
+  display: flex;
+  align-items: center;
 `;
 
 function Withdraw(props) {
@@ -26,7 +27,6 @@ function Withdraw(props) {
     networkId,
     currentWindow,
     // onChangeWithdrawWindow,
-
     onWithdrawSend,
     withdrawSendLoading,
     // withdrawMinedLoading,
@@ -41,9 +41,9 @@ function Withdraw(props) {
 
   return (
     <div>
-      <h3> Withdraw tokens </h3>
+      <h3> POS Forging - Withdraw </h3>
       <DivS>
-        <br /><br /><br />
+        <DivS2 />
         <Button
           type="primary"
           size="large"
@@ -59,13 +59,11 @@ function Withdraw(props) {
           minedRecipt={withdrawMinedRecipt}
         />
       </DivS>
-      <DivS2>
-        {conditionalSpace}
-        {noClosedWindows ? 'Withdraw is possible once the first window is closed.' : null}
-        <TxDisplay tx={withdrawSendTx} networkId={networkId} />
-        <ErrorDisplay error={withdrawError} />
-        <br />
-      </DivS2>
+      {conditionalSpace}
+      {noClosedWindows ? 'Withdraw is possible once the first window is closed.' : null}
+      <TxDisplay tx={withdrawSendTx} networkId={networkId} />
+      <ErrorDisplay error={withdrawError} />
+      <br />
       {/* WithdrawSendLoading: {withdrawSendLoading ? 'true' : 'false'} <br />
       <h2> Forging reward </h2>
       <br />
@@ -73,7 +71,7 @@ function Withdraw(props) {
       WithdrawMinedLoading: {withdrawMinedLoading ? 'true' : 'false'} <br />
       Error: {withdrawError ? withdrawError.toString() : 'false'} <br />
       SendTx: {withdrawSendTx || 'null'} <br />
-  MinedRecipt: {withdrawMinedRecipt ? '[object] ' : 'null'} <br /> */}
+      MinedRecipt: {withdrawMinedRecipt ? '[object] ' : 'null'} <br /> */}
     </div>
   );
 }

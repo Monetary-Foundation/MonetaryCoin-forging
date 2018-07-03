@@ -104,17 +104,21 @@ function AddressInfo(props) {
       <Instructions />
       <Row type="flex" align="left" >
         <Col sm={{ span: 10, offset: 1 }} xs={{ span: 22, offset: 1 }} style={{ overflowX: 'hidden' }}>
-          <h2> My Account </h2>
-          <h4> Address: </h4> <BigSpan> {addressComp} </BigSpan> <br />
+          <h2> My Account </h2> <br />
+          <h4> Address: </h4> <BigSpan> {addressComp} </BigSpan> <br /><br />
         </Col>
         <Col sm={{ span: 10, offset: 1 }} xs={{ span: 23, offset: 1 }} style={{ overflowX: 'hidden' }}>
-          <h2> Details </h2> <br />
-          <SmallSpan> My balance: </SmallSpan><BigNumber> {(balance && web3) ? web3.utils.fromWei(balance, 'ether') : 0}</BigNumber> <br />
+          <h2> Details</h2> <br /><br />
+          <SmallSpan> Balance: </SmallSpan><BigNumber> {(balance && web3) ? web3.utils.fromWei(balance, 'ether') : 0}</BigNumber> <br /> <br />
+          <SmallSpan> Commitment: </SmallSpan><BigNumber> {(commitment && web3) ? web3.utils.fromWei(commitment, 'ether') : 0}</BigNumber> <br />
         </Col>
       </Row>
 
-      <CommitLayout {...rest} commitment={commitment} web3={web3} />
-      <WithdrawLayout {...rest} reward={reward} web3={web3} />
+      <br /><br /><br />
+      <Row type="flex">
+        <CommitLayout {...rest} />
+        <WithdrawLayout {...rest} />
+      </Row>
     </Div>
   );
 }

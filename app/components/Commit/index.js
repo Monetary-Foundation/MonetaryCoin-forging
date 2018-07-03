@@ -15,12 +15,13 @@ import ErrorDisplay from 'components/ErrorDisplay';
 import TxDisplay from 'components/TxDisplay';
 
 const DivS = styled.div`
-  margin-top: 35px;
   margin-bottom: 15px;
 `;
 
 const DivS2 = styled.div`
-  overflow-x: hidden;
+  height: 10em;
+  display: flex;
+  align-items: center;
 `;
 
 function Commit(props) {
@@ -34,39 +35,37 @@ function Commit(props) {
     onChangeAmount,
     onCommitEthSend,
     networkId,
+
   } = props;
 
   const conditionalSpace = (!commitEthSendTx && !commitEthError) ? <br /> : null;
 
   return (
     <div>
-      <h3> POS Forging </h3>
-      <DivS>
-        <br /><br />
-        Amount:{' '}
+      <h3> POS Forging - Commit </h3>
+      <DivS2>
+        Amount: {' '}
         <InputNumber
           min={0.01}
           step={0.01}
           value={commitEthSendAmount}
           onChange={(value) => onChangeAmount(value)}
         />
-        <br /><br /><br />
-        <Button type="primary" size="large" onClick={() => onCommitEthSend()}>
-          Commit Ether
-        </Button>
-        <SendLoadingIndicator
-          loading={commitEthSendLoading}
-          error={commitEthError}
-          tx={commitEthSendTx}
-          minedRecipt={commitEthMinedRecipt}
-        />
-      </DivS>
-      <DivS2>
-        {conditionalSpace}
-        <TxDisplay tx={commitEthSendTx} networkId={networkId} />
-        <ErrorDisplay error={commitEthError} />
-        <br />
       </DivS2>
+      <Button type="primary" size="large" onClick={() => onCommitEthSend()}>
+        Commit Tokens
+      </Button>
+      <SendLoadingIndicator
+        loading={commitEthSendLoading}
+        error={commitEthError}
+        tx={commitEthSendTx}
+        minedRecipt={commitEthMinedRecipt}
+      />
+      <DivS />
+      {conditionalSpace}
+      <TxDisplay tx={commitEthSendTx} networkId={networkId} />
+      <ErrorDisplay error={commitEthError} />
+      <br />
       {/* commitEthSendLoading: {commitEthSendLoading ? 'true' : 'false'} <br />
       commitEthMinedLoading: {commitEthMinedLoading ? 'true' : 'false'} <br />
       Error: {commitEthError ? commitEthError.toString() : 'false'} <br />
