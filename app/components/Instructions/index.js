@@ -29,10 +29,10 @@ function Instructions() {
           <Item color="grey">Please read
             <a target="_blank" rel="noopener" href="https://monetarycoin.org/forging"> MonetaryCoin Forging Details</a>
           </Item>
-          <Item color="grey"><b>Test</b> this procces by selecting <b>Ropsten Test Network</b> from Metamask/Web3 browser before commiting real Ether</Item>
-          <Item><b>commit</b> Tokens for Forging</Item>
+          <Item color="grey"><b>Test</b> this procces by selecting <b>Ropsten Test Network</b> from Metamask/Web3 browser before commiting on Mainnet</Item>
+          <Item><b>Commit</b> Tokens for Forging</Item>
           <Item color="red">The Forging reward will increase with every block mined</Item>
-          <Item ><b>Withdraw</b> commitmend and reward</Item>
+          <Item ><b>Withdraw</b> commitment and reward</Item>
         </TimelineS>
       </Col>
     </RowS>
