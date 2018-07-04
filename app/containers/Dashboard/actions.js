@@ -17,6 +17,10 @@ import {
   GET_ADDRESS_INFO_SUCCESS,
   GET_ADDRESS_INFO_ERROR,
 
+  QUERY_REWARD,
+  QUERY_REWARD_SUCCESS,
+  QUERY_REWARD_ERROR,
+
   COMMIT_ETH_SEND_CHANGE_WINDOW,
   COMMIT_ETH_SEND_CHANGE_AMOUNT,
 
@@ -170,6 +174,45 @@ export function getAddressInfoError(error) {
   };
 }
 
+/**
+ * query for information about reward
+ *
+ * @return {object} An action object with a type of QUERY_REWARD
+ */
+export function queryReward() {
+  return {
+    type: QUERY_REWARD,
+  };
+}
+
+/**
+ * queryReward completed successfully
+ *
+ * @param  {object} rewardInfo
+ *
+ * @return {object} An action object with a type of QUERY_REWARD_SUCCESS and rewardInfo
+ */
+export function queryRewardSuccess(rewardInfo) {
+  return {
+    type: QUERY_REWARD_SUCCESS,
+    rewardInfo,
+  };
+}
+
+/**
+ * queryReward completed with error
+ *
+ * @param  {string} error
+ *
+ * @return {object} An action object with a type of QUERY_REWARD_ERROR and error string
+ */
+export function queryRewardError(error) {
+  console.log(error);
+  return {
+    type: QUERY_REWARD_ERROR,
+    error,
+  };
+}
 
 /**
  * Update the commit window

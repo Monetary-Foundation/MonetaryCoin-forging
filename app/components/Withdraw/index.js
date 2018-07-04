@@ -17,7 +17,7 @@ const DivS = styled.div`
 `;
 
 const DivS2 = styled.div`
-  height: 10em;
+  height: 13em;
   display: flex;
   align-items: center;
 `;

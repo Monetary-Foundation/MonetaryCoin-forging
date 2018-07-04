@@ -18,6 +18,10 @@ export const GET_ADDRESS_INFO = 'app/Dashboard/GET_ADDRESS_INFO';
 export const GET_ADDRESS_INFO_SUCCESS = 'app/Dashboard/GET_ADDRESS_INFO_SUCCESS';
 export const GET_ADDRESS_INFO_ERROR = 'app/Dashboard/GET_ADDRESS_INFO_ERROR';
 
+export const QUERY_REWARD = 'app/Dashboard/QUERY_REWARD';
+export const QUERY_REWARD_SUCCESS = 'app/Dashboard/QUERY_REWARD_SUCCESS';
+export const QUERY_REWARD_ERROR = 'app/Dashboard/QUERY_REWARD_ERROR';
+
 export const COMMIT_ETH_SEND_CHANGE_WINDOW = 'app/Dashboard/COMMIT_ETH_SEND_CHANGE_WINDOW';
 export const COMMIT_ETH_SEND_CHANGE_AMOUNT = 'app/Dashboard/COMMIT_ETH_SEND_CHANGE_AMOUNT';
 

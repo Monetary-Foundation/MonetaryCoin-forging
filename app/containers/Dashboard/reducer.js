@@ -18,6 +18,10 @@ import {
   GET_ADDRESS_INFO_SUCCESS,
   GET_ADDRESS_INFO_ERROR,
 
+  QUERY_REWARD,
+  QUERY_REWARD_SUCCESS,
+  QUERY_REWARD_ERROR,
+
   COMMIT_ETH_SEND_CHANGE_WINDOW,
   COMMIT_ETH_SEND_CHANGE_AMOUNT,
 
@@ -59,6 +63,10 @@ export const initialState = fromJS({
   getAddressInfoLoading: null,
   getAddressInfoError: null,
   addressInfo: null,
+
+  queryRewardLoading: null,
+  queryRewardError: null,
+  rewardInfo: null,
 
   commitEthSendWindow: 0,
   commitEthSendAmount: 1,
@@ -136,6 +144,20 @@ function dashboardReducer(state = initialState, action) {
         .set('getAddressInfoLoading', false)
         .set('getAddressInfoError', false)
         .set('addressInfo', fromJS(action.addressInfo));
+
+    case QUERY_REWARD:
+      return state
+        .set('queryRewardLoading', true)
+        .set('queryRewardError', false);
+    case QUERY_REWARD_ERROR:
+      return state
+        .set('queryRewardLoading', false)
+        .set('queryRewardError', action.error);
+    case QUERY_REWARD_SUCCESS:
+      return state
+        .set('queryRewardLoading', false)
+        .set('queryRewardError', false)
+        .set('rewardInfo', fromJS(action.rewardInfo));
 
     case COMMIT_ETH_SEND_CHANGE_WINDOW:
       return state
