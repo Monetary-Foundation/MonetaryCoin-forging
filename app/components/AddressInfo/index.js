@@ -11,7 +11,7 @@ import { Row, Col, Spin } from 'antd';
 import CommitLayout from 'components/CommitLayout';
 import WithdrawLayout from 'components/WithdrawLayout';
 import Instructions from 'components/Instructions';
-
+import { formatNumber } from 'utils/common';
 
 const Div = styled.div`
   padding-top: 2%;
@@ -61,7 +61,7 @@ function AddressInfo(props) {
   const address = addressInfo && addressInfo.address;
   const balance = addressInfo && addressInfo.balance;
   const commitment = addressInfo && addressInfo.commitment;
-  const reward = addressInfo && addressInfo.reward;
+  // const reward = addressInfo && addressInfo.reward;
 
   if (!isWeb3Browser) {
     return (
@@ -109,8 +109,8 @@ function AddressInfo(props) {
         </Col>
         <Col sm={{ span: 10, offset: 1 }} xs={{ span: 23, offset: 1 }} style={{ overflowX: 'hidden' }}>
           <h2> Details</h2> <br /><br />
-          <SmallSpan> Balance: </SmallSpan><BigNumber> {(balance && web3) ? web3.utils.fromWei(balance, 'ether') : 0}</BigNumber> <br /> <br />
-          <SmallSpan> Commitment: </SmallSpan><BigNumber> {(commitment && web3) ? web3.utils.fromWei(commitment, 'ether') : 0}</BigNumber> <br />
+          <SmallSpan> Balance: </SmallSpan><BigNumber> {(balance && web3) ? formatNumber(web3.utils.fromWei(balance, 'ether')) : 0}</BigNumber> <br /> <br />
+          <SmallSpan> Commitment: </SmallSpan><BigNumber> {(commitment && web3) ? formatNumber(web3.utils.fromWei(commitment, 'ether')) : 0}</BigNumber> <br />
         </Col>
       </Row>
 
