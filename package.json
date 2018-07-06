@@ -1,11 +1,11 @@
 {
-  "name": "monetarycoin-dapp",
+  "name": "monetarycoin-forging-dapp",
   "private": true,
   "version": "0.1.0",
   "description": "a DApp for interacting with MonetaryCoin contract",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Monetary-Foundation/PreDistribution-DApp.git"
+    "url": "https://github.com/Monetary-Foundation/MonetaryCoin-forging"
   },
   "author": "Paul Laux <lauxpaul@protonmail.com>",
   "license": "MIT",
