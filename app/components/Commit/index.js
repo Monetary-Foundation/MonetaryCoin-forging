@@ -46,9 +46,12 @@ function Commit(props) {
       <DivS2>
         Amount: {' '}
         <InputNumber
-          min={0.01}
-          step={0.01}
+          style={{ width: '120px' }}
+          min={0}
+          step={1000}
           value={commitEthSendAmount}
+          formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
           onChange={(value) => onChangeAmount(value)}
         />
       </DivS2>

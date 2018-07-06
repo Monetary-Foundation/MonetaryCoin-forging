@@ -69,7 +69,7 @@ export const initialState = fromJS({
   rewardInfo: null,
 
   commitEthSendWindow: 0,
-  commitEthSendAmount: 1,
+  commitEthSendAmount: 0,
 
   commitEthSendLoading: null,
   commitEthMinedLoading: null,

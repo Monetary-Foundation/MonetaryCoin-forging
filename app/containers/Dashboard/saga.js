@@ -16,6 +16,8 @@ import {
 
   WITHDRAW_SEND,
 
+  QUERY_REWARD,
+
   // used for eventChannel
   COMMIT_ETH_SEND_SUCCESS,
   COMMIT_ETH_MINED_SUCCESS,
@@ -37,6 +39,9 @@ import {
   getAddressInfo,
   getAddressInfoSuccess,
   getAddressInfoError,
+
+  queryRewardSuccess,
+  queryRewardError,
 
   commitEthSendSuccess,
   commitEthMinedSuccess,
@@ -252,6 +257,44 @@ function* getAddressInfoAsync() {
 }
 
 /**
+ * queryRewardAsync
+ */
+function* queryRewardAsync() {
+  try {
+    const web3 = yield select(makeSelectWeb3());
+
+    const address = (yield call(() => web3.eth.getAccounts()))[0];
+
+    const getCommitment = tokenContract.methods.getCommitment(address).call();
+    const getReward = tokenContract.methods.getReward(address).call();
+
+    const getAllPromises = () =>
+      Promise.all([getCommitment, getReward]);
+
+    const [commitment, reward] = yield call(getAllPromises);
+
+    const {
+      value,         // commitment value
+      onBlockNumber, // blocknumber on commitment
+      atStake,       // stake during commitment
+      onBlockReward,  // blockreward during commitment
+    } = commitment;
+
+    const rewardInfo = {
+      value,         // commitment value
+      onBlockNumber, // blocknumber on commitment
+      atStake,       // stake during commitment
+      onBlockReward,
+      reward,
+    };
+
+    yield put(queryRewardSuccess(rewardInfo));
+  } catch (err) {
+    yield put(queryRewardError(err.toString()));
+  }
+}
+
+/**
  * commitEthSendAsync
  */
 function* commitEthSendAsync() {
@@ -407,6 +450,8 @@ export default function* defaultSaga() {
 
   yield takeLatest(GET_DISTRIBUTION_INFO, getDistributionInfoAsync);
   yield takeLatest(GET_ADDRESS_INFO, getAddressInfoAsync);
+
+  yield takeLatest(QUERY_REWARD, queryRewardAsync);
 
   yield takeLatest(COMMIT_ETH_SEND, commitEthSendAsync);
   yield takeLatest(WITHDRAW_SEND, withdrawSendAsync);

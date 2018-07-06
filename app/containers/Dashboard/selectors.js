@@ -239,6 +239,45 @@ const makeSelectCommitEthMinedRecipt = () => createSelector(
   (substate) => substate.get('commitEthMinedRecipt')
 );
 
+/* Query reward */
+const makeSelectQueryRewardLoading = () => createSelector(
+  selectDashboardDomain,
+  (substate) => substate.get('queryRewardLoading')
+);
+
+const makeSelectQueryRewardError = () => createSelector(
+  selectDashboardDomain,
+  (substate) => substate.get('queryRewardError')
+);
+
+const makeSelectRewardInfo = () => createSelector(
+  selectDashboardDomain,
+  (substate) => substate.get('rewardInfo')
+);
+
+// fields inside rewardInfo
+
+const makeSelectRewardInfoValue = () => createSelector(
+  selectDashboardDomain,
+  (substate) => substate ? substate.getIn(['rewardInfo', 'value']) : null
+);
+const makeSelectRewardInfoOnBlockNumber = () => createSelector(
+  selectDashboardDomain,
+  (substate) => substate ? substate.getIn(['rewardInfo', 'onBlockNumber']) : null
+);
+const makeSelectRewardInfoAtStake = () => createSelector(
+  selectDashboardDomain,
+  (substate) => substate ? substate.getIn(['rewardInfo', 'atStake']) : null
+);
+const makeSelectRewardInfoOnBlockReward = () => createSelector(
+  selectDashboardDomain,
+  (substate) => substate ? substate.getIn(['rewardInfo', 'onBlockReward']) : null
+);
+const makeSelectRewardInfoReward = () => createSelector(
+  selectDashboardDomain,
+  (substate) => substate ? substate.getIn(['rewardInfo', 'reward']) : null
+);
+
 
 /* Withdraw */
 
@@ -349,6 +388,15 @@ export {
   makeSelectCommitEthSendTx,
   makeSelectCommitEthError,
   makeSelectCommitEthMinedRecipt,
+
+  makeSelectQueryRewardLoading,
+  makeSelectQueryRewardError,
+  makeSelectRewardInfo,
+  makeSelectRewardInfoValue,
+  makeSelectRewardInfoOnBlockNumber,
+  makeSelectRewardInfoAtStake,
+  makeSelectRewardInfoOnBlockReward,
+  makeSelectRewardInfoReward,
 
   makeSelectWithdrawWindow,
   makeSelectWithdrawSendLoading,

@@ -11,6 +11,7 @@ import { Button } from 'antd';
 import ErrorDisplay from 'components/ErrorDisplay';
 import TxDisplay from 'components/TxDisplay';
 import SendLoadingIndicator from 'components/SendLoadingIndicator';
+import QueryReward from 'components/QueryReward';
 
 const DivS = styled.div`
   margin-bottom: 15px; 
@@ -33,22 +34,38 @@ function Withdraw(props) {
     withdrawError,
     withdrawSendTx,
     withdrawMinedRecipt,
+    
+    onQueryReward,
+    ...rest,
+
   } = props;
 
   const conditionalSpace = (!withdrawSendTx && !withdrawError) ? <br /> : null;
 
   const noClosedWindows = (currentWindow === 0);
 
+  const queryRewardProps = {...rest};
+
   return (
     <div>
       <h3> POS Forging - Withdraw </h3>
       <DivS>
-        <DivS2 />
+        <DivS2>
+        <QueryReward {...queryRewardProps} />
+        </DivS2>
+        <Button
+          type="default"
+          size="large"
+          onClick={() => onQueryReward()}
+          disabled={false}
+        >
+          Query Reward
+        </Button>{' '}
         <Button
           type="primary"
           size="large"
           onClick={() => onWithdrawSend()}
-          disabled={noClosedWindows}
+          disabled={false}
         >
           Withdraw Tokens
         </Button>
@@ -66,7 +83,7 @@ function Withdraw(props) {
       <br />
       {/* WithdrawSendLoading: {withdrawSendLoading ? 'true' : 'false'} <br />
       <h2> Forging reward </h2>
-      <br />
+      <br //>
       WithdrawSendLoading: {withdrawSendLoading ? 'true' : 'false'} <br />
       WithdrawMinedLoading: {withdrawMinedLoading ? 'true' : 'false'} <br />
       Error: {withdrawError ? withdrawError.toString() : 'false'} <br />
@@ -86,6 +103,8 @@ Withdraw.propTypes = {
   withdrawError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   withdrawSendTx: PropTypes.string,
   withdrawMinedRecipt: PropTypes.object,
+
+  onQueryReward: PropTypes.func,
 };
 
 export default Withdraw;

@@ -40,6 +40,7 @@ import {
   getDistributionInfo,
   changeWithdrawWindow,
   withdrawSend,
+  queryReward,
 } from './actions';
 
 import {
@@ -79,6 +80,15 @@ import {
   makeSelectCommitEthSendTx,
   makeSelectCommitEthError,
   makeSelectCommitEthMinedRecipt,
+
+  makeSelectQueryRewardLoading,
+  makeSelectQueryRewardError,
+  makeSelectRewardInfo,
+  makeSelectRewardInfoValue,
+  makeSelectRewardInfoOnBlockNumber,
+  makeSelectRewardInfoAtStake,
+  makeSelectRewardInfoOnBlockReward,
+  makeSelectRewardInfoReward,
 
   makeSelectWithdrawWindow,
   makeSelectWithdrawSendLoading,
@@ -143,6 +153,16 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
       onChangeWindow,
       onChangeAmount,
       onCommitEthSend,
+
+      onQueryReward,
+      queryRewardLoading,
+      queryRewardError,
+      rewardInfo,
+      rewardInfoValue,
+      rewardInfoOnBlockNumber,
+      rewardInfoAtStake,
+      rewardInfoOnBlockReward,
+      rewardInfoReward,
 
       onChangeWithdrawWindow,
       onWithdrawSend,
@@ -223,7 +243,18 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
       withdrawSendTx,
       withdrawMinedRecipt,
     };
-    Object.assign(addressInfoProps, addressProps, commitProps, withdrawProps);
+    const rewardQueryProps = {
+      onQueryReward,
+      queryRewardLoading,
+      queryRewardError,
+      rewardInfo,
+      rewardInfoValue,
+      rewardInfoOnBlockNumber,
+      rewardInfoAtStake,
+      rewardInfoOnBlockReward,
+      rewardInfoReward,
+    };
+    Object.assign(addressInfoProps, addressProps, commitProps, withdrawProps, rewardQueryProps);
 
     const totalsInfoProps = {
       totalsList,
@@ -297,6 +328,16 @@ Dashboard.propTypes = {
   commitEthMinedLoading: PropTypes.bool,
   commitEthMinedRecipt: PropTypes.object,
 
+  onQueryReward: PropTypes.func,
+  queryRewardLoading: PropTypes.bool,
+  queryRewardError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  rewardInfo: PropTypes.object,
+  rewardInfoValue: PropTypes.string,
+  rewardInfoOnBlockNumber: PropTypes.string,
+  rewardInfoAtStake: PropTypes.string,
+  rewardInfoOnBlockReward: PropTypes.string,
+  rewardInfoReward: PropTypes.string,
+
   onChangeWindow: PropTypes.func,
   onChangeAmount: PropTypes.func,
   onCommitEthSend: PropTypes.func,
@@ -350,6 +391,15 @@ const mapStateToProps = createStructuredSelector({
   commitEthSendTx: makeSelectCommitEthSendTx(),
   commitEthMinedRecipt: makeSelectCommitEthMinedRecipt(),
 
+  queryRewardLoading: makeSelectQueryRewardLoading(),
+  queryRewardError: makeSelectQueryRewardError(),
+  rewardInfo: makeSelectRewardInfo(),
+  rewardInfoValue: makeSelectRewardInfoValue(),
+  rewardInfoOnBlockNumber: makeSelectRewardInfoOnBlockNumber(),
+  rewardInfoAtStake: makeSelectRewardInfoAtStake(),
+  rewardInfoOnBlockReward: makeSelectRewardInfoOnBlockReward(),
+  rewardInfoReward: makeSelectRewardInfoReward(),
+
   withdrawWindow: makeSelectWithdrawWindow(),
   withdrawSendLoading: makeSelectWithdrawSendLoading(),
   withdrawMinedLoading: makeSelectWithdrawMinedLoading(),
@@ -386,6 +436,9 @@ function mapDispatchToProps(dispatch) {
     },
     onWithdrawSend: () => {
       dispatch(withdrawSend());
+    },
+    onQueryReward: () => {
+      dispatch(queryReward());
     },
     dispatch,
   };
