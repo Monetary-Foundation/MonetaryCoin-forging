@@ -39,7 +39,11 @@ function DistributionInfo(props) {
   }
 
   if (getDistributionInfoError) {
-    return <div> {getDistributionInfoError} </div>;
+    return (
+      <Col sm={{ span: 10 }} xs={{ span: 23, offset: 1 }}>
+        {getDistributionInfoError}
+      </Col>
+    );
   }
 
   if (distributionInfo) {
