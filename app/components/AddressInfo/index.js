@@ -124,7 +124,7 @@ function AddressInfo(props) {
 }
 
 AddressInfo.propTypes = {
-  web3: PropTypes.object,
+  web3: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   isWeb3Browser: PropTypes.bool,
   getAddressInfoLoading: PropTypes.bool,
   getAddressInfoError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),

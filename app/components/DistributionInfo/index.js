@@ -67,8 +67,8 @@ function DistributionInfo(props) {
 }
 
 DistributionInfo.propTypes = {
-  web3: PropTypes.object,
-  tokenName: PropTypes.string,
+  web3: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  // tokenName: PropTypes.string,
   tokenSymbol: PropTypes.string,
   onGetDistributionInfo: PropTypes.func,
   getDistributionInfoLoading: PropTypes.bool,
