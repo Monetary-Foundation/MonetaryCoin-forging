@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { formatNumber } from 'utils/common';
 import { initialState } from './reducer';
 /**
  * Direct selector to the dashboard state domain
@@ -259,23 +260,51 @@ const makeSelectRewardInfo = () => createSelector(
 
 const makeSelectRewardInfoValue = () => createSelector(
   selectDashboardDomain,
-  (substate) => substate ? substate.getIn(['rewardInfo', 'value']) : null
+  (substate) => {
+    const web3 = substate.get('web3');
+    const value = substate ? substate.getIn(['rewardInfo', 'value']) : null;
+    if (value && web3 && typeof (web3) !== 'string') {
+      return formatNumber(Number(web3.utils.fromWei(value)).toFixed(0));
+    } // else:
+    return null;
+  }
 );
 const makeSelectRewardInfoOnBlockNumber = () => createSelector(
   selectDashboardDomain,
-  (substate) => substate ? substate.getIn(['rewardInfo', 'onBlockNumber']) : null
+  (substate) => substate ? formatNumber(substate.getIn(['rewardInfo', 'onBlockNumber'])) : null
 );
 const makeSelectRewardInfoAtStake = () => createSelector(
   selectDashboardDomain,
-  (substate) => substate ? substate.getIn(['rewardInfo', 'atStake']) : null
+  (substate) => {
+    const web3 = substate.get('web3');
+    const value = substate ? substate.getIn(['rewardInfo', 'atStake']) : null;
+    if (value && web3 && typeof (web3) !== 'string') {
+      return formatNumber(Number(web3.utils.fromWei(value)).toFixed(0));
+    } // else:
+    return null;
+  }
 );
 const makeSelectRewardInfoOnBlockReward = () => createSelector(
   selectDashboardDomain,
-  (substate) => substate ? substate.getIn(['rewardInfo', 'onBlockReward']) : null
+  (substate) => {
+    const web3 = substate.get('web3');
+    const value = substate ? substate.getIn(['rewardInfo', 'onBlockReward']) : null;
+    if (value && web3 && typeof (web3) !== 'string') {
+      return formatNumber(Number(web3.utils.fromWei(value)).toFixed(0));
+    } // else:
+    return null;
+  }
 );
 const makeSelectRewardInfoReward = () => createSelector(
   selectDashboardDomain,
-  (substate) => substate ? substate.getIn(['rewardInfo', 'reward']) : null
+  (substate) => {
+    const web3 = substate.get('web3');
+    const value = substate ? substate.getIn(['rewardInfo', 'reward']) : null;
+    if (value && web3 && typeof (web3) !== 'string') {
+      return formatNumber(Number(web3.utils.fromWei(value)).toFixed(0));
+    } // else:
+    return null;
+  }
 );
 
 
