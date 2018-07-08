@@ -39,7 +39,9 @@ function Commit(props) {
   } = props;
 
   const conditionalSpace = (!commitEthSendTx && !commitEthError) ? <br /> : null;
-
+  console.log(commitEthSendAmount);
+  console.log((commitEthSendAmount === 0));
+  
   return (
     <div>
       <h3> POS Forging - Commit </h3>
@@ -55,7 +57,7 @@ function Commit(props) {
           onChange={(value) => onChangeAmount(value)}
         />
       </DivS2>
-      <Button type="primary" size="large" onClick={() => onCommitEthSend()}>
+      <Button type="primary" size="large" onClick={() => onCommitEthSend()} disabled={(commitEthSendAmount === 0)}>
         Commit Tokens
       </Button>
       <SendLoadingIndicator

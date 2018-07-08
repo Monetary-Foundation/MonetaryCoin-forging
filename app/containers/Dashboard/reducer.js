@@ -182,7 +182,8 @@ function dashboardReducer(state = initialState, action) {
       return state
         .set('commitEthSendLoading', false)
         .set('commitEthError', false)
-        .set('commitEthSendTx', action.commitEthSendTx);
+        .set('commitEthSendTx', action.commitEthSendTx)
+        .set('rewardInfo', null);
     case COMMIT_ETH_MINED_SUCCESS:
       return state
         .set('commitEthMinedLoading', false)
@@ -209,7 +210,8 @@ function dashboardReducer(state = initialState, action) {
       return state
         .set('withdrawSendLoading', false)
         .set('withdrawError', false)
-        .set('withdrawSendTx', action.withdrawSendTx);
+        .set('withdrawSendTx', action.withdrawSendTx)
+        .set('rewardInfo', null);
     case WITHDRAW_MINED_SUCCESS:
       return state
         .set('withdrawMinedLoading', false)

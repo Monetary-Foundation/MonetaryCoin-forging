@@ -287,7 +287,8 @@ function* queryRewardAsync() {
       onBlockReward,
       reward,
     };
-
+    // TODO:Remove
+    yield call(timer, 2000);
     yield put(queryRewardSuccess(rewardInfo));
   } catch (err) {
     yield put(queryRewardError(err.toString()));

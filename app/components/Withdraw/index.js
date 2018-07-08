@@ -34,9 +34,11 @@ function Withdraw(props) {
     withdrawError,
     withdrawSendTx,
     withdrawMinedRecipt,
-    
+
+    commitment,
     onQueryReward,
-    ...rest,
+    rewardInfoReward,
+    ...rest
 
   } = props;
 
@@ -44,20 +46,24 @@ function Withdraw(props) {
 
   const noClosedWindows = (currentWindow === 0);
 
-  const queryRewardProps = {...rest};
+  const queryRewardProps = { rewardInfoReward, ...rest };
+
+  const isCommitment = commitment && commitment !== '0';
+
+  const conditionalInstructions = (!isCommitment) ? <p>Please commit MonetaryCoin first.</p> : null;
 
   return (
     <div>
       <h3> POS Forging - Withdraw </h3>
       <DivS>
         <DivS2>
-        <QueryReward {...queryRewardProps} />
+          <QueryReward {...queryRewardProps} />
         </DivS2>
         <Button
           type="default"
           size="large"
           onClick={() => onQueryReward()}
-          disabled={false}
+          disabled={!isCommitment}
         >
           Query Reward
         </Button>{' '}
@@ -65,7 +71,7 @@ function Withdraw(props) {
           type="primary"
           size="large"
           onClick={() => onWithdrawSend()}
-          disabled={false}
+          disabled={!(rewardInfoReward && rewardInfoReward !== '0')}
         >
           Withdraw Tokens
         </Button>
@@ -76,19 +82,12 @@ function Withdraw(props) {
           minedRecipt={withdrawMinedRecipt}
         />
       </DivS>
+      {conditionalInstructions}
       {conditionalSpace}
       {noClosedWindows ? 'Withdraw is possible once the first window is closed.' : null}
       <TxDisplay tx={withdrawSendTx} networkId={networkId} />
       <ErrorDisplay error={withdrawError} />
       <br />
-      {/* WithdrawSendLoading: {withdrawSendLoading ? 'true' : 'false'} <br />
-      <h2> Forging reward </h2>
-      <br //>
-      WithdrawSendLoading: {withdrawSendLoading ? 'true' : 'false'} <br />
-      WithdrawMinedLoading: {withdrawMinedLoading ? 'true' : 'false'} <br />
-      Error: {withdrawError ? withdrawError.toString() : 'false'} <br />
-      SendTx: {withdrawSendTx || 'null'} <br />
-      MinedRecipt: {withdrawMinedRecipt ? '[object] ' : 'null'} <br /> */}
     </div>
   );
 }
@@ -105,6 +104,7 @@ Withdraw.propTypes = {
   withdrawMinedRecipt: PropTypes.object,
 
   onQueryReward: PropTypes.func,
+  rewardInfoReward: PropTypes.string,
 };
 
 export default Withdraw;

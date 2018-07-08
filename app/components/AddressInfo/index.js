@@ -63,6 +63,8 @@ function AddressInfo(props) {
   const commitment = addressInfo && addressInfo.commitment;
   // const reward = addressInfo && addressInfo.reward;
 
+  const withdrawProps = { commitment, ...rest };
+
   if (!isWeb3Browser) {
     return (
       <Div>
@@ -117,7 +119,7 @@ function AddressInfo(props) {
       <br /><br /><br />
       <Row type="flex">
         <CommitLayout {...rest} />
-        <WithdrawLayout {...rest} />
+        <WithdrawLayout {...withdrawProps} />
       </Row>
     </Div>
   );

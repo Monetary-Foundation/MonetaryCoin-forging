@@ -271,7 +271,7 @@ const makeSelectRewardInfoValue = () => createSelector(
 );
 const makeSelectRewardInfoOnBlockNumber = () => createSelector(
   selectDashboardDomain,
-  (substate) => substate ? formatNumber(substate.getIn(['rewardInfo', 'onBlockNumber'])) : null
+  (substate) => (substate && substate.getIn(['rewardInfo', 'onBlockNumber'])) ? formatNumber(substate.getIn(['rewardInfo', 'onBlockNumber'])) : null
 );
 const makeSelectRewardInfoAtStake = () => createSelector(
   selectDashboardDomain,
