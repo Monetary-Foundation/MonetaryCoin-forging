@@ -51,17 +51,19 @@ function QueryReward(props) {
     );
   }
 
-
-  return (
-    <div>
-      Commitment value: {rewardInfoValue}<br />
-      Commitment block number: {rewardInfoOnBlockNumber}<br />
-      Commitment Stake: {rewardInfoAtStake}<br />
-      Commitment block reward: {rewardInfoOnBlockReward}<br /><br />
-      Expected reward: <B>{rewardInfoReward}</B> <br />
-      <P>Actual reward calculated on-chain during the withdraw transaction.</P>
-    </div>
-  );
+  if (rewardInfo) {
+    return (
+      <div>
+        Commitment value: {rewardInfoValue}<br />
+        Commitment block number: {rewardInfoOnBlockNumber}<br />
+        Commitment Stake: {rewardInfoAtStake}<br />
+        Commitment block reward: {rewardInfoOnBlockReward}<br /><br />
+        Expected reward: <B>{rewardInfoReward}</B> <br />
+        <P>Actual reward calculated on-chain during the withdraw transaction.</P>
+      </div>
+    );
+  }
+  return null;
 }
 
 QueryReward.propTypes = {
