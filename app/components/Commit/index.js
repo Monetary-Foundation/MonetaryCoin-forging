@@ -39,9 +39,8 @@ function Commit(props) {
   } = props;
 
   const conditionalSpace = (!commitEthSendTx && !commitEthError) ? <br /> : null;
-  console.log(commitEthSendAmount);
-  console.log((commitEthSendAmount === 0));
-  
+  // console.log(commitEthSendAmount);
+  // console.log((commitEthSendAmount === 0));
   return (
     <div>
       <h3> POS Forging - Commit </h3>
