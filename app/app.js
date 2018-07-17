@@ -19,7 +19,7 @@ import 'sanitize.css/sanitize.css';
 // Import root app
 import App from 'containers/App';
 
-import { repoName } from 'utils/constants';
+// import { repoName } from 'utils/constants';
 
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
@@ -41,7 +41,8 @@ import 'file-loader?name=[name].[ext]!./.htaccess';
 import '!file-loader?name=[name]!./vendor/Github/CNAME'; // for github - domain connection
 
 /* eslint-enable import/no-unresolved, import/extensions */
-
+import '!file-loader?name=token-icons/[name].[ext]!./images/token-icons/MERO.png';
+import '!file-loader?name=token-icons/[name].[ext]!./images/token-icons/MCHI.png';
 
 import configureStore from './configureStore';
 
