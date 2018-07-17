@@ -110,3 +110,8 @@ export const networks = {
     color: '#d4d4d4;',
   },
 };
+
+export const exchanges = {
+  MERO: [{ name: 'EtherDelta', url: 'https://etherdelta.com/#0x227412a7d92bca453b5e2f790fc8282ca2e1a686-ETH' }],
+  MCHI: [{ name: 'EtherDelta', url: 'https://etherdelta.com/#0x6644fc3e5224d28ba9172bfaa21359d43bbd4190-ETH' }],
+};

@@ -18,10 +18,11 @@ import injectReducer from 'utils/injectReducer';
 import { Row } from 'antd';
 
 import Header from 'components/Header';
+import SubHeader from 'components/SubHeader';
 import Web3Status from 'components/Web3Status';
 import DistributionInfo from 'components/DistributionInfo';
 
-import TotalsInfo from 'components/TotalsInfo';
+// import TotalsInfo from 'components/TotalsInfo';
 
 import AddressInfo from 'components/AddressInfo';
 
@@ -129,8 +130,8 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
       getDistributionInfoError,
 
       distributionInfo,
-      totalsList,
-      totalsSum,
+      // totalsList,
+      // totalsSum,
       currentWindow,
       totalWindows,
 
@@ -185,6 +186,9 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
       distributionAddress,
       tokenList,
       onInitDashboard,
+    };
+    const subHeaderProps = {
+      tokenSymbol,
     };
     const initStatusProps = {
       initStatus,
@@ -256,12 +260,12 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
     };
     Object.assign(addressInfoProps, addressProps, commitProps, withdrawProps, rewardQueryProps);
 
-    const totalsInfoProps = {
-      totalsList,
-      totalsSum,
-      totals: distributionInfo && distributionInfo.totals,
-      days: 181,
-    };
+    // const totalsInfoProps = {
+    //   totalsList,
+    //   totalsSum,
+    //   totals: distributionInfo && distributionInfo.totals,
+    //   days: 181,
+    // };
 
 
     return (
@@ -272,6 +276,7 @@ export class Dashboard extends React.PureComponent { // eslint-disable-line reac
 
         <Content>
           <Header {...headerProps} />
+          <SubHeader {...subHeaderProps} />
           <Row type="flex" align="middle">
             <Web3Status {...initStatusProps} />
             <DistributionInfo {...distributionInfoProps} />
