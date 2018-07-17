@@ -6,6 +6,8 @@ export const repoName = '/PreDistribution-DApp/';
 export const website = 'https://MonetaryCoin.io';
 export const github = 'https://github.com/Monetary-Foundation/MonetaryCoin-forging';
 
+export const gasPriceProvider = 'https://ethgasstation.info/json/ethgasAPI.json';
+export const defaultGasPriceGwei = '15';
 // case 1:
 // console.log('This is mainnet')
 // break

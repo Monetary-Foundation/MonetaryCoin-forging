@@ -1,9 +1,9 @@
 import { channel } from 'redux-saga';
 import { take, call, put, select, takeLatest, fork } from 'redux-saga/effects';
-
+import request from 'utils/request';
 import Web3 from 'web3';
 
-import { distributionContracts } from 'utils/constants';
+import { distributionContracts, defaultGasPriceGwei, gasPriceProvider } from 'utils/constants';
 
 import { MCoinAbi } from 'utils/contracts/abi';
 
@@ -295,6 +295,19 @@ function* queryRewardAsync() {
   }
 }
 
+function* getGasPrice() {
+  const web3 = yield select(makeSelectWeb3());
+  let gasPrice;
+  try {
+    const gasPriceReply = yield call(request, gasPriceProvider);
+    const safeLowPrice = gasPriceReply.safeLow / 10;
+    gasPrice = web3.utils.toWei((safeLowPrice).toString(), 'gwei');
+  } catch (err) {
+    gasPrice = web3.utils.toWei(defaultGasPriceGwei, 'gwei');
+  }
+  return gasPrice;
+}
+
 /**
  * commitEthSendAsync
  */
@@ -306,13 +319,13 @@ function* commitEthSendAsync() {
     const defaultAccount = (yield call(() => web3.eth.getAccounts()))[0];
 
     const commitValue = web3.utils.toWei(amount.toString(), 'ether');
-    console.log(commitValue);
-    console.log(`typeof amount: ${typeof (commitValue)}`);
+
+    const gasPrice = yield call(getGasPrice);
 
     tokenContract.methods.commit(commitValue).send({
       from: defaultAccount,
       gas: (200000).toString(),
-      gasPrice: web3.utils.toWei((10).toString(), 'gwei'),
+      gasPrice,
       value: 0,
     }).once('transactionHash', (tx) => {
       withdrawChannel.put({
@@ -360,11 +373,12 @@ function* withdrawSendAsync() {
 
     const defaultAccount = (yield call(() => web3.eth.getAccounts()))[0];
     // console.log(defaultAccount);
+    const gasPrice = yield call(getGasPrice);
 
     tokenContract.methods.withdraw().send({
       from: defaultAccount,
       gas: (100000).toString(),
-      gasPrice: web3.utils.toWei((10).toString(), 'gwei'),
+      gasPrice,
       value: 0,
     })
       .once('transactionHash', (tx) => {
