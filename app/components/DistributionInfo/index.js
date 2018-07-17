@@ -10,6 +10,7 @@ import styled from 'styled-components';
 
 import { Col, Spin } from 'antd';
 import { formatNumber } from 'utils/common';
+import DappDescription from 'components/DappDescription';
 
 const BigSpan = styled.span`
   color: #444444;
@@ -61,9 +62,10 @@ function DistributionInfo(props) {
     const totalSupply = distributionInfo && distributionInfo.totalSupply;
     return (
       <Col sm={{ span: 10, offset: 1 }} xs={{ span: 23, offset: 1 }} style={{ marginTop: 30 }}>
-        <SmallSpan> Total Supply: </SmallSpan><BigSpan> {totalSupply ? formatNumber(web3.utils.fromWei(totalSupply, 'ether')) : 0}</BigSpan> <br />
-        <SmallSpan> Block Reward: </SmallSpan><BigSpan> {blockReward ? formatNumber(web3.utils.fromWei(blockReward, 'ether')) : 0}</BigSpan> <br />
-        <SmallSpan> Total Stake: </SmallSpan><BigSpan> {totalStake ? formatNumber(web3.utils.fromWei(totalStake, 'ether')) : 0} </BigSpan> <br />
+        <SmallSpan> Total Supply: </SmallSpan><br /><BigSpan> {totalSupply ? formatNumber(web3.utils.fromWei(totalSupply, 'ether')) : 0}</BigSpan> <br />
+        <SmallSpan> Block Reward: </SmallSpan><br /><BigSpan> {blockReward ? formatNumber(web3.utils.fromWei(blockReward, 'ether')) : 0}</BigSpan> <br />
+        <SmallSpan> Total Stake: </SmallSpan><br /><BigSpan> {totalStake ? formatNumber(web3.utils.fromWei(totalStake, 'ether')) : 0} </BigSpan> <br />
+        <DappDescription />
       </Col>
     );
   }
