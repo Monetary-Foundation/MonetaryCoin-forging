@@ -58,8 +58,9 @@ function Web3Status(props) {
       <AddressLink address={tokenAddress} networkId={networkId} />
       <br /> <br />
       Web3 Provider: {provider || 'no web3 provider specified'} <br /><br />
-      <b><a target="_blank" rel="noopener" href="https://monetarycoin.org/forging"> MonetaryCoin Forging Details</a></b><br />
-      <a target="_blank" rel="noopener" href="https://monetarycoin.org">MonetaryCoin Homepage</a><br />
+      <b><a target="_blank" rel="noopener" href="https://medium.com/monetary-protocol/monetarycoin-forging-introduction-562791bb1ab5"> How Forging works? How to use?</a></b><br />
+      <a target="_blank" rel="noopener" href="https://monetarycoin.org/forging"> MonetaryCoin Forging Details</a><br />
+      {/* <a target="_blank" rel="noopener" href="https://monetarycoin.org">MonetaryCoin Homepage</a><br /> */}
       <a target="_blank" rel="noopener" href="https://github.com/Monetary-Foundation/MonetaryCoin">MonetaryCoin source code</a><br /><br />
     </Col>
   );
